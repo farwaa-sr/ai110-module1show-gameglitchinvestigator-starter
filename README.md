@@ -47,7 +47,7 @@ A guessing game, to guess a secret number and keep track of score for how many t
 
 ### [ ] Explaination of fixes I applied.
 1. Hints fix: the hints were opposite of what they were supposed to be, so, I reversed the arithmetic operation and corrected the issue.
-2. The game does not let you start a new game. When new game pressed, it never lets you submit a guess.  For this, I reset the history to an empty list, status updated to "playing" and parameters of secret number to low, high
+2. The game does not let you start a new game. When new game pressed, it never lets you submit a guess.  For this, I reset the history to an empty list, status updated to "playing" and parameters of secret number to low, high. My AI assistant helped with pinpointing the fix.
 
 ## 📸 Demo Walkthrough
 
