@@ -30,13 +30,20 @@ It wrote the code, ran away, and now the game is unplayable.
 A guessing game, to guess a secret number and keep track of score for how many times the guess was right, if attempts not used up.
 
 
-- [ ] Detail which bugs you found.
+### Bugs I found
 1. the hints are opposite. If the secret number is higher than guessed number, it should say Go higher, instead it says go lower, and vice versa.
 2. The game does not let you start a new game. When new game pressed, it never lets you submit a guess. 
 3. Not being able to start a new game means the score will never update.
 4. The score displayed and score in debugger info dont match, have a 10 point difference, but starting new game stores the displayed score.
 5. Changing the difficulty doesn't make sense; easy has fewer attempts than normal, and the secret number is the same.
 
+#### Bugs my AI Assistant helped me find:
+- Guesses silently compared as text on every even attempt — app.py:158-161: on even-numbered attempts, secret is converted to a string before calling check_guess. Comparing int > str raises TypeError, which the except block in check_guess catches by comparing the string representations instead (logic_utils.py:41-47). String comparison is lexicographic, not numeric — e.g. guessing 9 against secret 10 says "Too High" (should be "Too Low") because "9" > "10" as text. This silently corrupts roughly half of all guesses.
+- Contradictory scoring for the same mistake — logic_utils.py:57-60: a "Too High" guess gives +5 points on even attempts but -5 on odd attempts, while "Too Low" always gives -5. Being wrong is randomly rewarded depending on attempt parity.
+- Attempts start inconsistently — session init sets attempts = 1 (app.py:96), but New Game resets it to 0 (app.py:135). This mismatch also means your very first guess of the very first game already lands on an "even" attempt count, triggering bug #6 immediately rather than "every other guess."
+- Off-by-one on attempt limit — because attempts starts at 1 and increments before the >= attempt_limit check (app.py:182), you actually only get attempt_limit - 1 real guesses, not the number shown in the sidebar.
+- Wrong range shown in the guess prompt — app.py:109-112 always says "Guess a number between 1 and 100," even on Easy (1-20) or Hard (1-50).
+- The refactor to logic_utils.py was never done — every function there (logic_utils.py:1-26) is still a stub that just raises NotImplementedError; app.py keeps its own inline duplicates instead of importing them. That means tests/test_game_logic.py currently fails outright. Separately, once someone does move the code over, the tests expect check_guess to return a plain string like "Win" (tests/test_game_logic.py:6), but the actual function returns a tuple (outcome, message) — so the tests won't pass even after refactoring, without also updating them or the function.
 
 - [ ] Explain what fixes you applied.
 
