@@ -33,8 +33,11 @@ def check_guess(guess, secret):
     if guess == secret:
         return "Win", "🎉 Correct!"
 
+# FIXME: Logic breaks here
+# too high given when the guess is too low
+# FIXED: swap arithmetic
     try:
-        if guess > secret:
+        if guess < secret:
             return "Too High", "📈 Go HIGHER!"
         else:
             return "Too Low", "📉 Go LOWER!"
@@ -131,9 +134,13 @@ with col2:
 with col3:
     show_hint = st.checkbox("Show hint", value=True)
 
+# FIXME: Logic breaks here
+# FIXED: logic starts new game by reseting history, update status, and keep secret as low and high parameters
 if new_game:
     st.session_state.attempts = 0
-    st.session_state.secret = random.randint(1, 100)
+    st.session_state.status = "playing"
+    st.session_state.history = []
+    st.session_state.secret = random.randint(low, high)
     st.success("New game started.")
     st.rerun()
 
