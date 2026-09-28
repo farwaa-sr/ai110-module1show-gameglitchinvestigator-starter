@@ -53,20 +53,30 @@ A guessing game, to guess a secret number and keep track of score for how many t
 
 Describe your fixed game in numbered steps so a reader can follow along without watching a video:
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
-
-**Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
+1. User enters a guess of 60
+2. Game returns "Go lower"
+3. User enters a guess of 70, and the game shows "go lower"
+4. Score updates correctly after each guess
+5. Game ends after the correct guess
 
 ## 🧪 Test Results
 
 ```
 # Paste your pytest output here, e.g.:
 # pytest tests/
-# ========================= X passed in 0.XXs =========================
+(.venv) C:\Users\farwa\.vscode\.venv\Projects\ai110-module1show-gameglitchinvestigator-starter>pytest
+=============================================== test session starts ================================================
+platform win32 -- Python 3.12.0, pytest-9.1.1, pluggy-1.6.0
+rootdir: C:\Users\farwa\.vscode\.venv\Projects\ai110-module1show-gameglitchinvestigator-starter
+configfile: pytest.ini
+plugins: anyio-4.15.1
+collected 5 items
+
+tests\test_game_logic.py .....                                                                                [100%]
+
+================================================ 5 passed in 0.96s =================================================
+
+(.venv) C:\Users\farwa\.vscode\.venv\Projects\ai110-module1show-gameglitchinvestigator-starter>
 ```
 
 ## 🚀 Stretch Features
