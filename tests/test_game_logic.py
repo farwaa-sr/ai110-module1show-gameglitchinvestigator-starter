@@ -30,3 +30,5 @@ def test_hint_direction_guess_above_secret():
     _, message = check_guess_app(60, 50)
     assert "LOWER" in message
     assert "HIGHER" not in message
+
+
