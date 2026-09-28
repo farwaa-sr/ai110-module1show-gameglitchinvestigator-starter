@@ -46,6 +46,8 @@ A guessing game, to guess a secret number and keep track of score for how many t
 11. The refactor to logic_utils.py was never done — every function there (logic_utils.py:1-26) is still a stub that just raises NotImplementedError; app.py keeps its own inline duplicates instead of importing them. That means tests/test_game_logic.py currently fails outright. Separately, once someone does move the code over, the tests expect check_guess to return a plain string like "Win" (tests/test_game_logic.py:6), but the actual function returns a tuple (outcome, message) — so the tests won't pass even after refactoring, without also updating them or the function.
 
 ### [ ] Explaination of fixes I applied.
+1. Hints fix: the hints were opposite of what they were supposed to be, so, I reversed the arithmetic operation and corrected the issue.
+2. The game does not let you start a new game. When new game pressed, it never lets you submit a guess.  For this, I reset the history to an empty list, status updated to "playing" and parameters of secret number to low, high
 
 ## 📸 Demo Walkthrough
 
